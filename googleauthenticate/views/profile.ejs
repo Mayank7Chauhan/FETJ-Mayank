@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Google Authenticate</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+  background-color: white;
+  border: 7px solid #808080; /* Grey color */
+  border-style: double; /* Double outline */
+  width: 800px; /* Adjust the width as needed */
+  height: 400px; /* Adjust the height as needed */
+  padding: 20px; /* Add padding for content */
+}
+
+    h1 {
+      color: #333;
+    }
+
+    p {
+      color: #555;
+      margin: 10px 0;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    #indianTimePlaceholder {
+      font-weight: bold;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+      margin-top: 20px;
+      display: inline-block;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Display profile image if user.photos is present -->
+    <% if (user.photos && user.photos.length > 0) { %>
+        <h2><img src="<%= user.photos[0].value %>" alt="Profile Image"></h2>
+      <% } else { %>
+        <p>Profile Image not available</p>
+      <% } %>
+
+  <% if (user) { %>
+    <h2>Hello, <%= user.displayName %> <a href="/signout"> [Sign Out]</a></h2>
+   
+<!-- Display user's email address if available -->
+
+    <h2>You are signed in with the email mayank3r@gmail.com %>.</h2>
+
+    <!-- Display current Indian time -->
+    <h2 id="indianTimePlaceholder"></h2>
+    <script>
+      // JavaScript function to get current Indian time
+      function getCurrentIndianTime() {
+        const now = new Date();
+        const options = { timeZone: 'Asia/Kolkata', hour12: false };
+        return now.toLocaleTimeString('en-US', options);
+      }
+      // Display current Indian time
+      document.getElementById('indianTimePlaceholder').textContent = 'Current Indian Time: ' + getCurrentIndianTime();
+    </script>
+
+    
+  <% } else { %>
+    <p>User not authenticated. Please sign in.</p>
+    <a href="/">Go back to Home</a>
+  <% } %>
+</div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Authenticate</title>
+</head>
+<body>
+  <h1>Welcome to Google Authenticate</h1>
+  
+  <% if (!user) { %>
+    <a href="/auth/google">Sign In with Google</a>
+  <% } else { %>
+    <p>Hello, <%= user.displayName %></p>
+    <a href="/signout">Sign Out</a>
+  <% } %>
+
+</body>
+</html>
