@@ -17,13 +17,13 @@
       height: 100vh;
     }
     .container {
-  background-color: white;
-  border: 7px solid #808080; 
-  border-style: double; 
-  width: 800px; 
-  height: 400px; 
-  padding: 20px; 
-}
+      background-color: white;
+      border: 7px solid #808080; /* Grey color */
+      border-style: double; /* Double outline */
+      width: 800px; /* Adjust the width as needed */
+      height: 400px; /* Adjust the height as needed */
+      padding: 20px; /* Add padding for content */
+    }
 
     h1 {
       color: #333;
@@ -59,36 +59,69 @@
   <div class="container">
     <!-- Display profile image if user.photos is present -->
     <% if (user.photos && user.photos.length > 0) { %>
-        <h2><img src="<%= user.photos[0].value %>" alt="Profile Image"></h2>
-      <% } else { %>
-        <p>Profile Image not available</p>
-      <% } %>
+      <h2><img src="<%= user.photos[0].value %>" alt="Profile Image"></h2>
+    <% } else { %>
+      <p>Profile Image not available</p>
+    <% } %>
 
-  <% if (user) { %>
-    <h2>Hello, <%= user.displayName %> <a href="/signout"> [Sign Out]</a></h2>
-   
-<!-- Display user's email address if available -->
+    <% if (user) { %>
+      <h2>Hello, <%= user.displayName %> <a href="/signout"> [Sign Out]</a></h2>
 
-    <h2>You are signed in with the email mayank3r@gmail.com %>.</h2>
+      <!-- Display user's email address if available -->
+      <h2>You are signed in with the email mayank3r@gmail.com %>.</h2>
 
-    <!-- Display current Indian time -->
-    <h2 id="indianTimePlaceholder"></h2>
-    <script>
-      // JavaScript function to get current Indian time
-      function getCurrentIndianTime() {
-        const now = new Date();
-        const options = { timeZone: 'Asia/Kolkata', hour12: false };
-        return now.toLocaleTimeString('en-US', options);
-      }
-      // Display current Indian time
-      document.getElementById('indianTimePlaceholder').textContent = 'Current Indian Time: ' + getCurrentIndianTime();
-    </script>
+      <!-- Display current Indian time -->
+      <h2 id="indianTimePlaceholder"></h2>
 
-    
-  <% } else { %>
-    <p>User not authenticated. Please sign in.</p>
-    <a href="/">Go back to Home</a>
-  <% } %>
-</div>
+      <!-- Input field to enter the number of lines -->
+      <input type="number" id="numberOfLines" placeholder="Enter Number of Lines" />
+
+      <!-- Button to trigger the displayLines function -->
+      <button onclick="displayLines()">Display Pattern</button>
+
+      <!-- Container to display the pattern -->
+      <div id="patternContainer"></div>
+
+      <script>
+        // JavaScript function to get current Indian time
+        function getCurrentIndianTime() {
+          const now = new Date();
+          const options = { timeZone: 'Asia/Kolkata', hour12: false };
+          return now.toLocaleTimeString('en-US', options);
+        }
+
+        // Display current Indian time
+        document.getElementById('indianTimePlaceholder').textContent = 'Current Indian Time: ' + getCurrentIndianTime();
+      </script>
+
+      <!-- Function to display lines based on input value -->
+      <script>
+        // Function to display lines based on input value
+        function displayLines() {
+          const numberOfLines = document.getElementById('numberOfLines').value;
+
+          // Validate input to be a positive integer less than or equal to 100
+          if (numberOfLines > 0 && numberOfLines <= 100) {
+            const patternContainer = document.getElementById('patternContainer');
+            patternContainer.innerHTML = ''; // Clear previous content
+
+            // Generate and display the pattern
+            for (let i = 0; i < numberOfLines; i++) {
+              const line = document.createElement('div');
+              let spaces = ' '.repeat((numberOfLines - i) * 5); // Add leading spaces
+              let characters = 'F' + 'ORMULA'.substring(0, i); // Get characters based on line number
+              line.textContent = spaces + characters; // Combine spaces and characters
+              patternContainer.appendChild(line);
+            }
+          } else {
+            alert('Please enter a valid number between 1 and 100.');
+          }
+        }
+      </script>
+    <% } else { %>
+      <p>User not authenticated. Please sign in.</p>
+      <a href="/">Go back to Home</a>
+    <% } %>
+  </div>
 </body>
 </html>
